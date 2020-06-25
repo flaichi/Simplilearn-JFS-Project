@@ -2,6 +2,7 @@ package src;
 
 import java.awt.Graphics;
 import java.io.File;
+import java.util.Arrays;
 
 // for Jframe lib.
 import javax.swing.ImageIcon;
@@ -74,6 +75,7 @@ public class MainJava extends JFrame {
 		continue_button.setBounds(320, 360, 80, 30);
 		continue_button.addActionListener((action) -> {
 			pane.removeAll();
+			initApp();
 		});
 		pane.add(continue_button);
 		add(pane);
@@ -103,6 +105,41 @@ public class MainJava extends JFrame {
 		setIconImage(new ImageIcon("assets/icon.png").getImage());
 	}
 
+	private void initApp() {
+        menu_bar = new JMenuBar();
+        menu_search = new JMenu("Search");
+        search_option = new JMenuItem("Search a file");  
+        menu_search.add(search_option);
+        menu_add = new JMenu("Add");
+        add_option = new JMenuItem("Add file to aplication folder");
+        menu_add.add(add_option);
+        menu_remove = new JMenu("Remove");
+        remove_option = new JMenuItem("Remove file of aplication folder");
+        menu_remove.add(remove_option);
+        menu_bar.add(menu_search);
+        menu_bar.add(menu_add);
+        menu_bar.add(menu_remove);
+        setJMenuBar(menu_bar);
+
+        folder = new File("data");
+        if(!folder.isDirectory()) {
+            folder.mkdir();
+        }
+        scroll_pane = new JScrollPane();
+        scroll_pane.setBounds(10, 10, 700, 440);
+        scroll_pane.setViewportView(text_area);
+        files = folder.listFiles();
+        Arrays.sort(files);
+
+        if(files.length > 0) //updateTextArea();
+
+        pane.add(scroll_pane);
+    }
+	
+	
+	
+	
+	
 	// Searching files 
 	private void searchFile() {
         String filename = null;
