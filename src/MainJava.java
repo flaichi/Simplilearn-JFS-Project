@@ -148,6 +148,7 @@ public class MainJava extends JFrame {
 
         files = folder.listFiles();
         Arrays.sort(files);
+        //updateTextArea tt = new updateTextArea()
 
         if(files.length > 0) updateTextArea();
         pane.add(scroll_pane);
@@ -166,6 +167,7 @@ public class MainJava extends JFrame {
         scroll_pane.setViewportView(text_area);
         pane.repaint();
     }
+    
 	
 	
 	// Searching files 
@@ -190,9 +192,9 @@ public class MainJava extends JFrame {
 	        file_chooser.setDialogTitle("Add File Context");
 	        file_chooser.setApproveButtonText("Select");
 
-	        int opcion = file_chooser.showOpenDialog(this);
+	        int choice = file_chooser.showOpenDialog(this);
 
-	        if(opcion == JFileChooser.APPROVE_OPTION) {
+	        if(choice == JFileChooser.APPROVE_OPTION) {
 	            try { Runtime.getRuntime().exec(new String[] {
 	                "cmd", "/c", "copy", file_chooser.getSelectedFile().getAbsolutePath(), "data" }).waitFor();
 	            }
