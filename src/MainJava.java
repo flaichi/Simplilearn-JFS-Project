@@ -1,8 +1,10 @@
 package src;
 
-import java.awt.Graphics;
 import java.io.File;
 import java.util.Arrays;
+import javax.swing.*;
+import java.awt.*;
+
 
 // for Jframe lib.
 import javax.swing.ImageIcon;
@@ -40,17 +42,16 @@ public class MainJava extends JFrame {
 	
 	
 	// METHODS
-
-	public MainJava() {
-		initComponents();
-	}
+	 public MainJava() {
+		 initComponents(); 
+	 }
     // exceptions possible.
 	public static void main(String args[]) {
-		try { 
-			new MainJava().setVisible(true);
-		} catch (Exception ignore) {
-		// none.	
-		}
+		EventQueue.invokeLater(() -> {
+			try { new MainJava().setVisible(true); 
+			}
+	         catch (Exception ignore) {}
+	        });
 
 	}
 
@@ -73,6 +74,7 @@ public class MainJava extends JFrame {
 		// add Button fo first welcome Window
 		JButton continue_button = new JButton("Continue");
 		continue_button.setBounds(320, 360, 80, 30);
+		//Lambda inference  function 
 		continue_button.addActionListener((action) -> {
 			pane.removeAll();
 			initApp();
@@ -83,6 +85,7 @@ public class MainJava extends JFrame {
 
 	// better java swing graphics rendering
 	private void initNimbus() {
+		// anticipates possible exceptions and catch with logging details.
         try {
             for(javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
                 if("Nimbus".equals(info.getName())) {
@@ -106,38 +109,63 @@ public class MainJava extends JFrame {
 	}
 
 	private void initApp() {
-        menu_bar = new JMenuBar();
+		menu_bar = new JMenuBar();
         menu_search = new JMenu("Search");
-        search_option = new JMenuItem("Search a file");  
+        search_option = new JMenuItem("Search a file");
+        search_option.addActionListener((action) -> {
+            searchFile();
+        });
         menu_search.add(search_option);
         menu_add = new JMenu("Add");
         add_option = new JMenuItem("Add file to aplication folder");
+		add_option.addActionListener((action) -> { addFile(); updateTextArea(); });
         menu_add.add(add_option);
         menu_remove = new JMenu("Remove");
         remove_option = new JMenuItem("Remove file of aplication folder");
+        // Lambda function  
+        remove_option.addActionListener((action) -> {
+            removeFile();
+            updateTextArea();
+        });
         menu_remove.add(remove_option);
+
         menu_bar.add(menu_search);
         menu_bar.add(menu_add);
         menu_bar.add(menu_remove);
         setJMenuBar(menu_bar);
 
         folder = new File("data");
-        if(!folder.isDirectory()) {
+        if(!folder.isDirectory())
             folder.mkdir();
-        }
+
+        text_area = new JTextArea("No Files...");
+        text_area.setBounds(10, 10, 700, 440);
+        text_area.setEditable(false);
+
         scroll_pane = new JScrollPane();
         scroll_pane.setBounds(10, 10, 700, 440);
         scroll_pane.setViewportView(text_area);
+
         files = folder.listFiles();
         Arrays.sort(files);
 
-        if(files.length > 0) //updateTextArea();
-
+        if(files.length > 0) updateTextArea();
         pane.add(scroll_pane);
     }
 	
 	
-	
+	private void updateTextArea() {
+        String filenames = "FILES:\n\n";
+        files = folder.listFiles();
+        Arrays.sort(files);
+
+        for(File file: files)
+            filenames += file.getName() + "\n";
+
+        text_area.setText(filenames);
+        scroll_pane.setViewportView(text_area);
+        pane.repaint();
+    }
 	
 	
 	// Searching files 
@@ -173,4 +201,4 @@ public class MainJava extends JFrame {
 
 	//private JPanel pane;
 	
-}
+	}
