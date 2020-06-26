@@ -169,31 +169,52 @@ public class MainJava extends JFrame {
 	
 	
 	// Searching files 
-	private void searchFile() {
-        String filename = null;
-        filename = JOptionPane.showInputDialog(null, "Enter a filename to search");
+	 private void searchFile() {
+	        String filename = null;
+	        filename = JOptionPane.showInputDialog(null, "Enter a valid filename to search");
 
-        if(filename != null) {
-        	
-        }
-    }
+	        if(filename != null)
+	            for(File file: files)
+	                if(filename.equals(file.getName())) {
+	                    JOptionPane.showMessageDialog(null, "File has been Found.");
+	                    return;
+	                }
 
-    private void addFile() {
-        file_chooser = new JFileChooser();
-        file_chooser.setCurrentDirectory(new File("."));
-        file_chooser.setDialogTitle("Add File Context");
-        file_chooser.setApproveButtonText("Select");
+	        JOptionPane.showMessageDialog(null, "File has not been Found.");
+	    }
+	 
+	 // Adding files
+	 private void addFile() {
+	        file_chooser = new JFileChooser();
+	        file_chooser.setCurrentDirectory(new File("."));
+	        file_chooser.setDialogTitle("Add File Context");
+	        file_chooser.setApproveButtonText("Select");
 
-        
-    }
+	        int opcion = file_chooser.showOpenDialog(this);
 
+	        if(opcion == JFileChooser.APPROVE_OPTION) {
+	            try { Runtime.getRuntime().exec(new String[] {
+	                "cmd", "/c", "copy", file_chooser.getSelectedFile().getAbsolutePath(), "data" }).waitFor();
+	            }
+	            catch (Exception ignore) {}
+	        }
+	    }
+	 
+	// Removing Files 
     private void removeFile() {
         String filename = null;
         filename = JOptionPane.showInputDialog(null, "Enter a filename to remove");
-
-        if(filename != null) {
-        	
+        if(filename != null)
+        	for(File file: files)
+                if(filename.equals(file.getName())) {
+                    try { Runtime.getRuntime().exec(new String[] {
+                            "cmd", "/c", "del", file.getAbsolutePath() }).waitFor();
+                     }
+                     catch (Exception ignore) {}
+        JOptionPane.showMessageDialog(null, "File removed.");
+        return;           
         }
+        JOptionPane.showMessageDialog(null, "File not found.");
     }
 
 
