@@ -10,16 +10,20 @@ public class SearchFile {
     }
 
     private void searchFile(File files[]) {
-        String filename = null;
-        filename = JOptionPane.showInputDialog(null, "Enter a filename to search");
-
-        if(filename != null)
+        //String filename = null;
+        String filename = JOptionPane.showInputDialog(null, "Enter a filename to search");
+       
+        if(filename.isEmpty()) {
+        	JOptionPane.showMessageDialog(null, "User Input Filename Empty!");
+        }else {         
             for(File file: files)
-                if(filename.equals(file.getName())) {
+                if(filename.equalsIgnoreCase(file.getName())) {
                     JOptionPane.showMessageDialog(null, "File has been found.");
                     return;
                 }
-
-        JOptionPane.showMessageDialog(null, "File not found.");
-    }
-}
+            	JOptionPane.showMessageDialog(null, "File not found.");
+        }
+     
+    }       
+}       
+  

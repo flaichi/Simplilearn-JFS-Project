@@ -51,7 +51,7 @@ public class MainJava extends JFrame {
 	
 	
 	private void initJFrame() {  //JFrame is a window
-        setTitle("Virtuel Key Repository");
+        setTitle("Virtuel Key Repository: Done by Farouk Laichi 30-jun-2020");
         setSize(720 + 16, 480 + 39);
         setResizable(false);
         setLocationRelativeTo(null);
@@ -100,6 +100,16 @@ public class MainJava extends JFrame {
         });
         menu_remove.add(option_remove);
 
+        
+        menu_help = new JMenu("Help");
+        menu_help_user =  new JMenuItem("Application Info:");
+        menu_help_user.addActionListener((action) -> {
+        	JOptionPane.showMessageDialog(null, "Application Devlopped for Locked.me by Farouk Laichi: 30Jun2020");
+            
+        });
+        menu_help.add(menu_help_user);
+
+        
         menu_exit = new JMenu("Back / Exit");
         option_back_welcome = new JMenuItem("Back to the Welcome Screen");
         option_back_welcome.addActionListener((action) -> {
@@ -120,18 +130,21 @@ public class MainJava extends JFrame {
         menu_bar.add(menu_add);
         menu_bar.add(menu_remove);
         menu_bar.add(menu_exit);
+        menu_bar.add(menu_help);
         setJMenuBar(menu_bar);  //Add menu bar to window
         getJMenuBar().setVisible(false);  //Hide menu bar
     }
     
     
-    
+    // menu and menu items (sub menu) for the Application.
     private JPanel panel;
     private JMenuBar menu_bar;
     private JMenu menu_search;
+    private JMenu menu_help;
     private JMenu menu_add;
     private JMenu menu_remove;
     private JMenuItem option_search;
+    private JMenuItem menu_help_user;
     private JMenuItem option_add;
     private JMenuItem option_remove;
     private JMenu menu_exit;

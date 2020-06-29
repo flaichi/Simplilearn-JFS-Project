@@ -21,7 +21,7 @@ public class Welcome {
         exit_button = new JButton("Exit");
         exit_button.setBounds(320, 380, 80, 30);
         exit_button.addActionListener((action) -> {
-            System.exit(0);  //Exit aplication
+            System.exit(0);  //Exit application
         });
         panel.add(exit_button);
     }

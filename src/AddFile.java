@@ -23,7 +23,7 @@ public class AddFile {
                 if(file_chooser.getSelectedFile().getName().equals(file.getName()))
                     JOptionPane.showMessageDialog(null, "File already exist");
 
-            //Call cmd in the system for copy file
+            //Call command in the system for copy file
             try { Runtime.getRuntime().exec(new String[] {
                 "cmd", "/c", "copy", file_chooser.getSelectedFile().getAbsolutePath(), "data" }).waitFor();
             }
