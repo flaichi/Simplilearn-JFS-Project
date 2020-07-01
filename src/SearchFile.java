@@ -10,7 +10,7 @@ public class SearchFile {
     }
 
     private void searchFile(File files[]) {
-        //String filename = null;
+     
         String filename = JOptionPane.showInputDialog(null, "Enter a filename to search");
        
         if(filename.isEmpty()) {

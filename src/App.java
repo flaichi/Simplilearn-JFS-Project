@@ -2,6 +2,7 @@ package src;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -32,6 +33,7 @@ public class App {
         panel.add(scroll_pane); //Add text area to pane
     }
 
+    /*
     public static void updateTextArea(JPanel panel) {
         String filenames = "FILES:\n\n";
         files = folder.listFiles();  //Get file list in folder "data"
@@ -44,7 +46,28 @@ public class App {
         scroll_pane.setViewportView(text_area);
         panel.repaint();
     }
+*/
+    
+    public static void updateTextArea(JPanel panel) {
+        String filenames = "FILES:\n\n";
+        files = folder.listFiles();  //Get file list in folder "data"
+        
+        Arrays.sort(files);  //Sort file list (ascending order)
+        List<File> listFiles = Arrays.asList(files);
+        
+        for(File file: listFiles)
+            filenames += file.getName() + "\n";  //Get filenames in folder "data"
 
+        text_area.setText(filenames);  //Update filenames of text area
+        scroll_pane.setViewportView(text_area);
+        panel.repaint();
+    }
+    
+    
+    
+    
+    
+    
     //MEMBERS
 
     private static File folder;
